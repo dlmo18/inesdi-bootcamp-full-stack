@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:dmolina
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -13,8 +13,8 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-# Bind your app to port 8080
-EXPOSE 8080
+# Bind your app to port 8082
+EXPOSE 8082
 
 CMD [ "node", "server.js" ]
 #CMD [ "node", "server_solution.js" ]
