@@ -2,31 +2,6 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 
-// Connect to mongodb server
-const mongoose = require('mongoose');
-
-const dbName = 'mock_database';
-const collectionName = 'users';
-const dbHost = 'mongodb://localhost:27017/'+dbName;
-
-
-mongoose.Promise = global.Promise;
-mongoose.connect(dbHost, {
-    useNewUrlParser: true
-}).then(() => {
-    console.log("Databse Connected Successfully!!");    
-}).catch(err => {
-    console.log('Could not connect to the database', err);
-    process.exit();
-});
-
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log("Connected to MongoDB database");
-});
-
 // Constants
 const hostname = 'localhost';
 const port = 8082;
@@ -38,7 +13,7 @@ app.use(bodyParser.json())
 
 
 /*
-Your implementation here 
+Servicios
 */
 
 const userController = require('./controllers/user'); //controlador de acciones
@@ -50,27 +25,50 @@ router.get('/', (req, res) => {
   res.json({"message": "Hello Crud Node Express"});
 });
 
-// Create a new user
+// Crear usuario
 router.post('/users', userController.createUser);
 
-// Retrieve all users
+// Listar todos
 router.get('/users', userController.getUsers);
 
-// Retrieve a single user
+// Lista uno por ID
 router.get('/users/:id', userController.getUserById);
 
-// Update a user
+// Actualizar usuario por ID
 router.put('/users/:id', userController.updateUser);
 
 // Delete a user
 router.delete('/users/:id', userController.deleteUser);
 
 // Find users by condition
-router.post('/users/search', userController.findUsersByCondition);
+router.post('/users/:filter/:value', userController.findUsersByCondition);
 
 //app.use(bodyParser.json()); // for parsing application/json
 console.log("Rutas configuradas");    
 
-app.listen(port, hostname);
-console.log(`Running on http://${hostname}:${port}`);
 
+// Connect to mongodb server
+const mongoose = require('mongoose');
+
+const dbName = 'mock_database';
+const dbHost = 'mongodb://localhost:27017/'+dbName;
+
+
+mongoose.Promise = global.Promise;
+mongoose.connect(dbHost).then(() => {
+    console.log("Base de datos conectada!!");    
+
+    app.listen(port, hostname);
+    console.log(`Corriendo en http://${hostname}:${port}`);
+
+}).catch(err => {
+    console.log('No se puede conectar a la base de datos', err);
+    process.exit();
+});
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'Error de conexión:'));
+db.once('open', function() {
+  console.log("Conectado a MongoDB : ".dbName);
+});

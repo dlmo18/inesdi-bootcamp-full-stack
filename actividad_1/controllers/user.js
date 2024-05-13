@@ -68,17 +68,6 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// Delete all objects
-exports.deleteAllUsers = async (req, res) => {
-  try {
-    const result = await User.deleteMany();
-    res.status(200).json({ message: `${result.deletedCount} users deleted successfully` });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server Error' });
-  }
-};
-
 // Find all objects by condition
 exports.findUsersByCondition = async (req, res) => {
   try {
