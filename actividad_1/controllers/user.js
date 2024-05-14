@@ -17,6 +17,7 @@ exports.getUsers = async (req, res) => {
   try {
     const users = await User.find(req.query);
     res.status(200).json(users);
+    //res.status(200).json({ message: 'Server Done' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
