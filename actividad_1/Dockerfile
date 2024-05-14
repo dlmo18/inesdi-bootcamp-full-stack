@@ -1,4 +1,4 @@
-FROM node:dmolina
+FROM node:alpine
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -13,9 +13,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-# Bind your app to port 8082
-EXPOSE 8082
+# Bind your app to port 8080
+EXPOSE 8080
 
 CMD [ "node", "server.js" ]
-#CMD [ "node", "server_solution.js" ]
-#docker run --name mongodb-container --hostname mongodb-container -d -p 27017:27017 --network mynetwork -v <YOUR-PATH-VOLUME-DIRECTORY>:/data/db users

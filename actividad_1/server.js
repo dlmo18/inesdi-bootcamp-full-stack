@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 // Constants
 const hostname = 'localhost';
-const port = 8082;
+const port = 8080;
 
 // App
 const app = express();
@@ -21,54 +21,53 @@ const router = express.Router();
 
 
 // Validar online
-router.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.json({"message": "Hello Crud Node Express"});
 });
 
 // Crear usuario
-router.post('/users', userController.createUser);
+app.post('/users', userController.createUser);
 
 // Listar todos
-router.get('/users', userController.getUsers);
+app.get('/users', userController.getUsers);
 
 // Lista uno por ID
-router.get('/users/:id', userController.getUserById);
+app.get('/users/:id', userController.getUserById);
 
 // Actualizar usuario por ID
-router.put('/users/:id', userController.updateUser);
+app.put('/users/:id', userController.updateUser);
 
 // Delete a user
-router.delete('/users/:id', userController.deleteUser);
+app.delete('/users/:id', userController.deleteUser);
 
 // Find users by condition
-router.post('/users/:filter/:value', userController.findUsersByCondition);
+app.post('/users/search', userController.findUsersByCondition);
 
 //app.use(bodyParser.json()); // for parsing application/json
 console.log("Rutas configuradas");    
+    
 
+app.listen(port, hostname);
+console.log(`Corriendo en http://${hostname}:${port}`);
 
 // Connect to mongodb server
 const mongoose = require('mongoose');
 
-const dbName = 'mock_database';
+const dbName = 'mock-database';
 const dbHost = 'mongodb://localhost:27017/'+dbName;
 
+// mongoose.Promise = global.Promise;
+// mongoose.connect(dbHost).then(() => {
+//     console.log("Base de datos conectada "+dbHost+" !!");
 
-mongoose.Promise = global.Promise;
-mongoose.connect(dbHost).then(() => {
-    console.log("Base de datos conectada!!");    
+// }).catch(err => {
+//     console.log('No se puede conectar a la base de datos: '+dbHost, err);
+//     process.exit();
+// });
 
-    app.listen(port, hostname);
-    console.log(`Corriendo en http://${hostname}:${port}`);
+//const db = mongoose.connection;
 
-}).catch(err => {
-    console.log('No se puede conectar a la base de datos', err);
-    process.exit();
-});
-
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'Error de conexión:'));
-db.once('open', function() {
-  console.log("Conectado a MongoDB : ".dbName);
-});
+// db.on('error', console.error.bind(console, 'Error de conexión:'));
+// db.once('open', function() {
+//   console.log("Conectado a MongoDB : ".dbName);
+// });
