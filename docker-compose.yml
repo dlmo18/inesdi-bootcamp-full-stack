@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+
+  node-app:
+    container_name: node-app
+    restart: always
+    build: .
+    ports:
+      - '8081:8080'
+    volumes:
+      -  .:/usr/src/app
+     
