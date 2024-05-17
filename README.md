@@ -2,10 +2,21 @@
 
 ## Descripción de contenidos
 
-* actividad_1: código de actividad con las codificaciones solicitadas
+* Código de actividad para creación de API de servicios de NodeJS con MongoDB Dokerizado
+
+# Instalar servicios:
+```bash
+npm i
+```
+
+# Levantar desde NodeJS:
+```bash
+npm run start
+```
 
 # Levantar desde Docker:
 ```bash
+docker-compose build
 docker-compose up
 ```
 
@@ -16,9 +27,13 @@ docker-compose up
 curl --location 'http://localhost:8080/users'
 ```
 
-# buscar registro por filtro
+# buscar registro por filtro de GÉNERO (gender)
 ```bash
-curl --location 'http://localhost:8080/users/'
+curl --location 'http://localhost:8080/users/search' \
+--header 'Content-Type: application/json' \
+--data '{
+  "gender": "Male"
+}'
 ```
 
 # crear registro
@@ -33,21 +48,21 @@ curl --location 'http://localhost:8080/users' \
 }'
 ```
 
-# modificar registro
+# modificar registro por ID
 ```bash
-curl --location --request PUT 'http://localhost:8080/users/666' \
+curl --location --request PUT 'http://localhost:8080/users/6647c4c05a8c59ecfa84d5a9' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-  "first_name": "John",
-  "last_name": "Doe",
-  "email": "john.doe@dummy.com",
+  "first_name": "Johnny",
+  "last_name": "Doemon",
+  "email": "Johnny.Doemon@dummy.com",
   "gender": "Male"
 }'
 ```
 
 # eliminar registro
 ```bash
-curl --location --request DELETE 'http://localhost:8080/users/666' \
+curl --location --request DELETE 'http://localhost:8080/users/6647c500cea30eb5979584d6' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "email": "john.doe@dummy.com"

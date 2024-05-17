@@ -72,13 +72,10 @@ exports.deleteUser = async (req, res) => {
 // Find all objects by condition
 exports.findUsersByCondition = async (req, res) => {
   try {
-    const users = await User.find(req.body);
+    const users = await User.find(res.body);
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error de servidor' });
   }
 };
-
-//sudo docker ps
-//sudo docker stop 766aec680812
