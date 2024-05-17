@@ -13,12 +13,22 @@ npm i
 ```bash
 npm run start
 ```
+Open in browser http://localhost:8080/
 
 # Levantar desde Docker:
+```bash
+docker build inesdi .
+docker run -p 8000:8080 inesdi
+```
+Open in browser http://localhost:8000/
+
+# Levantar desde Docker-compose:
 ```bash
 docker-compose build
 docker-compose up
 ```
+Open in browser http://localhost:8081/
+
 
 ## Ejecutar consultas / Se incluye una colección en POSTMAN con ejemplos
 

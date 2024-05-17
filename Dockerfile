@@ -16,4 +16,4 @@ COPY . .
 # Bind your app to port 8080
 EXPOSE 8080
 
-CMD [ "node", "run", "start" ]
+CMD [ "npm", "run", "start" ]
