@@ -6,7 +6,6 @@
 
 # Levantar desde Docker:
 ```bash
-cd actividad_1/
 docker-compose up
 ```
 
